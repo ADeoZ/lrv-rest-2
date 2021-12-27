@@ -21,9 +21,9 @@ class ApiTokenController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-//        if (!$user || !Hash::check($request->password, $user->password)){
-//            return response()->json(['error'=> 'User not found'], 401);
-//        }
+        if (!$user || !Hash::check($request->password, $user->password)){
+            return response()->json(['error'=> 'User not found'], 401);
+        }
 
         $token = $user->createToken($request->device_name);
         return ['token' => $token->plainTextToken];
